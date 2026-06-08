@@ -1,0 +1,8 @@
+﻿data/openfoodfacts-products.jsonl
+data/openfoodfacts_germany.jsonl
+data/openfoodfacts_poland.jsonl
+data/openfoodfacts_germany_esg.csv
+data/openfoodfacts_poland_esg.csv
+__pycache__/
+.streamlit/
+*.pyc

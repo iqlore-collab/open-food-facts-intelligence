@@ -65,5 +65,10 @@ if frames:
         cols = st.columns(4)
         for i, row in sample.iterrows():
             with cols[i % 4]:
-                st.image(row["best_image"], use_container_width=True)
+                st.write(row["best_image"])
+
+        try:
+            st.image(str(row["best_image"]), use_container_width=True)
+        except Exception as e:
+            st.error(str(e))
                 st.write(row.get("product_name", ""))

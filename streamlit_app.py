@@ -88,7 +88,7 @@ if "nutriscore_grade" in filtered.columns:
     if selected_scores:
         filtered = filtered[filtered["nutriscore_grade"].isin(selected_scores)]
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "Overview",
     "Germany vs Poland",
     "Nutrition Explorer",
@@ -221,3 +221,37 @@ with tab5:
     safe_table = filtered[cols].head(1000).copy()
     safe_table = safe_table.astype(str)
     st.dataframe(safe_table, use_container_width=True)
+
+with tab6:
+    st.header("Author")
+
+    from pathlib import Path
+
+    photo = Path("data/1731311789083.jpg")
+
+    if photo.exists():
+        st.image(str(photo), width=350)
+
+    st.subheader("Dr. Tomasz Szymusiak")
+
+    st.markdown("""
+### AI-Powered Geospatial Investment Intelligence Platform
+
+Researcher, Data Scientist and Project Manager working at the intersection of:
+
+- Artificial Intelligence
+- Geospatial Analytics
+- Renewable Energy
+- Hydrogen Economy
+- Maritime Intelligence
+- Investment Intelligence
+
+Current flagship projects:
+
+- Namibia Hydrogen Atlas
+- Open Food Facts Intelligence
+- Ethical Consumer Intelligence Platform
+
+GitHub:
+https://github.com/iqlore-collab
+""")

@@ -93,7 +93,8 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "Germany vs Poland",
     "Nutrition Explorer",
     "Risk Ranking",
-    "Product Table"
+    "Product Table",
+    "Author"
 ])
 
 with tab1:
@@ -255,3 +256,4 @@ Current flagship projects:
 GitHub:
 https://github.com/iqlore-collab
 """)
+

@@ -17,10 +17,14 @@ def load_data():
     frames = []
 
     if GERMANY_FILE.exists():
-        frames.append(pd.read_csv(GERMANY_FILE, low_memory=False))
+        de = pd.read_csv(GERMANY_FILE, low_memory=False)
+        de["market"] = "Germany"
+        frames.append(de)
 
     if POLAND_FILE.exists():
-        frames.append(pd.read_csv(POLAND_FILE, low_memory=False))
+        pl = pd.read_csv(POLAND_FILE, low_memory=False)
+        pl["market"] = "Poland"
+        frames.append(pl)
 
     if not frames:
         return pd.DataFrame()

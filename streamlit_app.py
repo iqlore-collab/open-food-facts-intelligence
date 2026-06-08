@@ -218,4 +218,6 @@ with tab5:
     ]
     cols = [c for c in cols if c in filtered.columns]
 
-    st.dataframe(filtered[cols].head(5000), use_container_width=True)
+    safe_table = filtered[cols].head(1000).copy()
+    safe_table = safe_table.astype(str)
+    st.dataframe(safe_table, use_container_width=True)

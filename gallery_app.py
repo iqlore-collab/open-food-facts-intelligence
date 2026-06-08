@@ -114,7 +114,7 @@ for i, row in show.iterrows():
         image_url = str(row.get("image_url", ""))
 
         try:
-            st.image(image_url, use_container_width=True)
+            st.markdown(f"[Open image]({image_url})")
         except Exception as e:
             st.warning("Image could not be loaded.")
             st.caption(image_url)

@@ -28,6 +28,17 @@ def load_data():
 
     df = pd.concat(frames, ignore_index=True)
 
+    required_text_cols = [
+        "labels", "labels_tags", "ingredients_text", "packaging",
+        "packaging_tags", "origins", "manufacturing_places",
+        "ecoscore_grade", "nutriscore_grade", "product_name",
+        "brands", "stores", "categories"
+    ]
+
+    for col in required_text_cols:
+        if col not in df.columns:
+            df[col] = ""
+
     numeric_cols = [
         "energy-kcal_100g", "fat_100g", "saturated-fat_100g",
         "carbohydrates_100g", "sugars_100g", "proteins_100g", "salt_100g",

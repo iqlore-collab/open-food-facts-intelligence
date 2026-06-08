@@ -434,3 +434,5 @@ Measures how complete the product information is:
 
 Important: this is not a final scientific ESG rating. It is a transparent prototype scoring system.
     """)
+
+# redeploy trigger

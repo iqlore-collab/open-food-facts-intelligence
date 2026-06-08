@@ -257,3 +257,59 @@ GitHub:
 https://github.com/iqlore-collab
 """)
 
+from pathlib import Path
+import base64
+
+with tab6:
+    st.header("Author")
+
+    photo = Path("data/1731311789083.jpg")
+
+    if photo.exists():
+        img_bytes = photo.read_bytes()
+        img_b64 = base64.b64encode(img_bytes).decode()
+
+        st.markdown(
+            f"""
+            <div style="text-align:center;">
+                <a href="https://www.dbu.de/" target="_blank">
+                    <img src="data:image/jpeg;base64,{img_b64}"
+                         width="350"
+                         style="border-radius:15px; cursor:pointer;">
+                </a>
+                <p><b>Click the photo to visit DBU</b></p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    st.subheader("Dr. Tomasz Szymusiak")
+
+    st.markdown("""
+### AI-Powered Geospatial Investment Intelligence Platform
+
+Researcher, Data Scientist and Project Manager working at the intersection of:
+
+- Artificial Intelligence
+- Geospatial Analytics
+- Renewable Energy
+- Hydrogen Economy
+- Maritime Intelligence
+- Investment Intelligence
+
+Current flagship projects:
+
+- Namibia Hydrogen Atlas
+- Open Food Facts Intelligence
+- Ethical Consumer Intelligence Platform
+""")
+
+    st.link_button(
+        "🌍 Visit DBU",
+        "https://www.dbu.de/"
+    )
+
+    st.link_button(
+        "💻 GitHub Portfolio",
+        "https://github.com/iqlore-collab"
+    )

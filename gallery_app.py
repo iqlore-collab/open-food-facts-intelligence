@@ -2,11 +2,7 @@
 import pandas as pd
 from pathlib import Path
 
-st.set_page_config(
-    page_title="Open Food Facts Product Gallery",
-    page_icon="🖼️",
-    layout="wide"
-)
+st.set_page_config(page_title="Open Food Facts Product Gallery", page_icon="🖼️", layout="wide")
 
 DATA_DIR = Path("data")
 GERMANY_FILE = DATA_DIR / "openfoodfacts_germany_images.csv"
@@ -31,7 +27,7 @@ def load_data():
 
     df = pd.concat(frames, ignore_index=True)
 
-    for col in ["product_name", "brands", "stores", "categories", "market", "image_url", "image_front_url", "image_front_small_url"]:
+    for col in ["product_name", "brands", "stores", "categories", "image_url", "image_front_url", "image_front_small_url", "nutriscore_grade", "ecoscore_grade"]:
         if col not in df.columns:
             df[col] = ""
         df[col] = df[col].fillna("").astype(str)
@@ -61,7 +57,10 @@ st.title("🖼️ Open Food Facts Product Gallery")
 st.caption("Visual product explorer for Germany and Poland using Open Food Facts image URLs")
 
 if df.empty:
-    st.error("Brak danych obrazów. Sprawdź pliki images.csv w folderze data.")
+    st.error("Brak danych obrazów.")
+    st.write("Current directory:", Path.cwd())
+    st.write("Data folder exists:", DATA_DIR.exists())
+    st.write("Files in data:", list(DATA_DIR.glob("*")) if DATA_DIR.exists() else [])
     st.stop()
 
 st.sidebar.header("Filters")
@@ -75,7 +74,6 @@ markets = st.sidebar.multiselect(
 filtered = df[df["market"].isin(markets)].copy()
 
 query = st.sidebar.text_input("Search product / brand / category", value="chocolate")
-
 if query:
     filtered = filtered[filtered["search_text"].str.contains(query.lower(), na=False)]
 
@@ -91,25 +89,18 @@ max_items = st.sidebar.slider("Number of products", 12, 96, 24, step=12)
 
 st.subheader(f"Products found: {len(filtered):,}")
 
-cols = st.columns(4)
-
 show = filtered.head(max_items).reset_index(drop=True)
+
+cols = st.columns(4)
 
 for i, row in show.iterrows():
     with cols[i % 4]:
         st.image(row["best_image"], use_container_width=True)
+        st.markdown(f"**{row.get('product_name', 'Unnamed product')[:80]}**")
+        st.caption(f"{row.get('brands', '')[:80]} | {row.get('market', '')}")
 
-        name = row.get("product_name", "")
-        brand_name = row.get("brands", "")
-        market = row.get("market", "")
-        nutri = row.get("nutriscore_grade", "")
-        eco = row.get("ecoscore_grade", "")
-
-        st.markdown(f"**{name[:80] if name else 'Unnamed product'}**")
-        st.caption(f"{brand_name[:80]} | {market}")
-
-        st.write(f"Nutri-Score: **{nutri if nutri else 'n/a'}**")
-        st.write(f"Eco-Score: **{eco if eco else 'n/a'}**")
+        st.write(f"Nutri-Score: **{row.get('nutriscore_grade', 'n/a')}**")
+        st.write(f"Eco-Score: **{row.get('ecoscore_grade', 'n/a')}**")
 
         sugars = row.get("sugars_100g")
         salt = row.get("salt_100g")
